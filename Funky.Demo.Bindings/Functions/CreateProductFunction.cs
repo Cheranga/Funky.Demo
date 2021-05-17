@@ -21,19 +21,24 @@ namespace Funky.Demo.Functions
         }
 
         [FunctionName(nameof(CreateProductFunction))]
-        public async Task<IActionResult> CreateProductAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "products")]
+        [return:Queue("%CreateProductsQueue%",Connection = "QueueConnectionString")]
+        public async Task<CreateProductCommand> CreateProductAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "products")]
             HttpRequestMessage request)
         {
             var createProductRequest = await requestReader.ReadModelAsync<CreateProductRequest>(request);
-            var operation = await createProductService.ExecuteAsync(createProductRequest);
+            if (createProductRequest == null)
+            {
+                return null;
+            }
 
-            if (!operation.Status)
-                return new ObjectResult(operation.Error)
-                {
-                    StatusCode = (int) HttpStatusCode.InternalServerError
-                };
+            var command = new CreateProductCommand
+            {
+                Id = createProductRequest.Id,
+                Code = createProductRequest.Name,
+                Name = createProductRequest.Name
+            };
 
-            return new AcceptedResult();
+            return command;
         }
     }
 }
