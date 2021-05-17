@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Funky.Demo", "Funky.Demo\Funky.Demo.csproj", "{00D6E26D-2DB5-4F95-820F-E22578D6CC3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Funky.Demo.Bindings", "Funky.Demo.Bindings\Funky.Demo.Bindings.csproj", "{00D6E26D-2DB5-4F95-820F-E22578D6CC3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
