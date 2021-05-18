@@ -12,9 +12,9 @@ namespace Funky.Demo.Functions
     public class CreateProductFunction
     {
         private readonly ICreateProductService createProductService;
-        private readonly IHttpRequestJsonReader requestReader;
+        private readonly IHttpRequestBodyReader requestReader;
 
-        public CreateProductFunction(IHttpRequestJsonReader requestReader, ICreateProductService createProductService)
+        public CreateProductFunction(IHttpRequestBodyReader requestReader, ICreateProductService createProductService)
         {
             this.requestReader = requestReader;
             this.createProductService = createProductService;

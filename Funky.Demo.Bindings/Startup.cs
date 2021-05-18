@@ -17,7 +17,7 @@ namespace Funky.Demo
         private void RegisterServices(IServiceCollection services)
         {
             services.AddSingleton<ICreateProductService, CreateProductService>();
-            services.AddSingleton<IHttpRequestJsonReader, HttpRequestJsonReader>();
+            services.AddSingleton<IHttpRequestBodyReader, HttpRequestBodyReader>();
         }
     }
 }

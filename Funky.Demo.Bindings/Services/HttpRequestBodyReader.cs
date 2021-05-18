@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Funky.Demo.Services
 {
-    public class HttpRequestJsonReader : IHttpRequestJsonReader
+    public class HttpRequestBodyReader : IHttpRequestBodyReader
     {
         public async Task<TModel> ReadModelAsync<TModel>(HttpRequestMessage request) where TModel : class, new()
         {

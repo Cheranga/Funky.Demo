@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Funky.Demo.Services
 {
-    public interface IHttpRequestJsonReader
+    public interface IHttpRequestBodyReader
     {
         Task<TModel> ReadModelAsync<TModel>(HttpRequestMessage request) where TModel : class, new();
     }
