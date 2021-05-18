@@ -13,8 +13,19 @@ namespace Funky.Demo
         {
             var services = builder.Services;
 
+            RegisterMappers(services);
             RegisterValidators(services);
             RegisterServices(services);
+        }
+
+        private void RegisterMappers(IServiceCollection services)
+        {
+            var assemblies = new[]
+            {
+                typeof(Startup).Assembly
+            };
+
+            services.AddAutoMapper(assemblies);
         }
 
         private void RegisterValidators(IServiceCollection services)
