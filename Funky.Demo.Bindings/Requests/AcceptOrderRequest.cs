@@ -11,6 +11,7 @@ namespace Funky.Demo.Requests
 
     public class OrderItem
     {
+        public string Category { get; set; }
         public string ProductCode { get; set; }
         public decimal Price { get; set; }
         public long Quantity { get; set; }

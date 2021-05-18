@@ -25,7 +25,7 @@ namespace Funky.Demo.Functions
         }
         
         [FunctionName(nameof(AcceptOrderFunction))]
-        public async Task<IActionResult> RunAsync(
+        public async Task<IActionResult> AcceptOrderAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "orders")]
             HttpRequestMessage request,
             [Queue("%CustomerOrdersQueue%", Connection = "QueueConnectionString")]IAsyncCollector<CreateOrderMessage> messages)

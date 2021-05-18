@@ -29,4 +29,8 @@
           <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </None>
     </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Functions\VegetablePickerFunction.cs" />
+      <Compile Remove="Functions\ManualPickerFunction.cs" />
+    </ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Funky.Demo.Messages;
 
-namespace Funky.Demo.Functions
+namespace Funky.Demo.Abstractions
 {
     public interface IHandleOrder
     {
-        Task HandleOrderAsync(CreateOrderMessage message);
+        Task ExecuteAsync(CreateOrderMessage message);
     }
 }
