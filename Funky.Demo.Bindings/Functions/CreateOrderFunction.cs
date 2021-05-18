@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Funky.Demo.Messages;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 
 namespace Funky.Demo.Functions
 {
@@ -9,9 +10,10 @@ namespace Funky.Demo.Functions
     {
         [FunctionName(nameof(CreateOrderFunction))]
         public async Task CreateOrderAsync([QueueTrigger("%CustomerOrdersQueue%", Connection = "QueueConnectionString")]
-            CreateOrderMessage message)
+            CreateOrderMessage message, [DurableClient]IDurableClient client)
         {
-            await Task.Delay(TimeSpan.FromSeconds(2));
+            var entityId = new EntityId(nameof(HandleOrderFunction), message.OrderId.ToUpper());
+            await client.SignalEntityAsync<IHandleOrder>(entityId, handler => handler.HandleOrderAsync(message));
         }
     }
 }
