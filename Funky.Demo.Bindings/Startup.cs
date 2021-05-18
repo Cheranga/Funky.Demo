@@ -1,3 +1,4 @@
+using FluentValidation;
 using Funky.Demo;
 using Funky.Demo.Services;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
@@ -11,7 +12,19 @@ namespace Funky.Demo
         public override void Configure(IFunctionsHostBuilder builder)
         {
             var services = builder.Services;
+
+            RegisterValidators(services);
             RegisterServices(services);
+        }
+
+        private void RegisterValidators(IServiceCollection services)
+        {
+            var assemblies = new[]
+            {
+                typeof(Startup).Assembly
+            };
+
+            services.AddValidatorsFromAssemblies(assemblies);
         }
 
         private void RegisterServices(IServiceCollection services)
