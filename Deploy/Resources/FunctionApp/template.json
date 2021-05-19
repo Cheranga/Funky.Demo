@@ -31,6 +31,14 @@
         "appInsightsKey": {
             "type": "securestring",
             "defaultValue": "tbd"
+        },
+        "customerOrdersQueue": {
+            "type": "string",
+            "defaultValue": "customerorders"
+        },
+        "ordersTable": {
+            "type": "string",
+            "defaultValue": "Orders"
         }
     },
     "variables": {        
@@ -70,7 +78,9 @@
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/sites', parameters('functionAppName'))]"
                     ],
-                    "properties": {                        
+                    "properties": {     
+                        "CustomerOrdersQueue": "[parameters('customerOrdersQueue')]",
+                        "OrdersTable": "[parameters('ordersTable')]",
                         "AzureWebJobsStorage": "[parameters('storageAccountConnectionString')]",
                         "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[parameters('storageAccountConnectionString')]",
                         "WEBSITE_CONTENTSHARE": "[toLower(parameters('functionAppName'))]",
@@ -109,7 +119,9 @@
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/sites/Slots', parameters('functionAppName'), 'Staging')]"
                     ],
-                    "properties": {                        
+                    "properties": {     
+                        "CustomerOrdersQueue": "[parameters('customerOrdersQueue')]",
+                        "OrdersTable": "[parameters('ordersTable')]",                   
                         "AzureWebJobsStorage": "[parameters('storageAccountConnectionString')]",
                         "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "[parameters('storageAccountConnectionString')]",
                         "WEBSITE_CONTENTSHARE": "[toLower(parameters('functionAppName'))]",

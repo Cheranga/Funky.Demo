@@ -4,8 +4,7 @@ trigger:
   batch: true
   branches:
     include:
-      - master
-      - feature/*
+      - "*"
 
   paths:
     exclude:
@@ -19,26 +18,26 @@ pr:
 
 variables:
   - name: vmImage
-    value: 'windows-latest'
+    value: "windows-latest"
 
 stages:
   - stage: Build
     jobs:
-      - job: 'Build'
+      - job: "Build"
         pool:
           vmImage: ${{variables.vmImage}}
         steps:
-          - template: 'build.yaml'
+          - template: "build.yaml"
             parameters:
-              projectFiles: '**/*.csproj'
+              projectFiles: "**/*.csproj"
 
   - stage: DEV
-    dependsOn: ['Build']
+    dependsOn: ["Build"]
     jobs:
       - deployment: DEV
         variables:
-          - template: 'Variables/common.yaml'
-          - template: 'Variables/dev.yaml'
+          - template: "Variables/common.yaml"
+          - template: "Variables/dev.yaml"
         pool:
           vmImage: ${{variables.vmImage}}
         environment: DEV
@@ -46,6 +45,6 @@ stages:
           runOnce:
             deploy:
               steps:
-                - template: 'deploy.yaml'
+                - template: "deploy.yaml"
                   parameters:
                     buildNumber: $(Build.BuildNumber)

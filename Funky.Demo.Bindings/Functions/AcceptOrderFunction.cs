@@ -28,7 +28,7 @@ namespace Funky.Demo.Functions
         public async Task<IActionResult> AcceptOrderAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "orders")]
             HttpRequestMessage request,
-            [Queue("%CustomerOrdersQueue%", Connection = "QueueConnectionString")]IAsyncCollector<CreateOrderMessage> messages)
+            [Queue("%CustomerOrdersQueue%")]IAsyncCollector<CreateOrderMessage> messages)
         {
             var acceptOrderRequest = await requestReader.ReadModelAsync<AcceptOrderRequest>(request);
             var validationResult = await validator.ValidateAsync(acceptOrderRequest);
