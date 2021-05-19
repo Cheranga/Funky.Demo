@@ -2,12 +2,6 @@ parameters:
   projectFiles: ''
 
 steps:
-  - task: UseDotNet@2
-    displayName: 'Use .NET Core sdk 5.0.100-rc.1.20452.10'
-    inputs:
-      packageType: 'sdk'
-      version: '5.0.100'
-      includePreviewVersions: true
 
   - task: DotNetCoreCLI@2
     displayName: Build and Restore
