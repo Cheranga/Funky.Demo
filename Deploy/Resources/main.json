@@ -56,19 +56,7 @@
         "planTier": {
             "type": "string",
             "defaultValue": "tbd"
-        },
-        "musicSearchApplicationId": {
-            "type": "securestring",
-            "defaultValue": "tbd"
-        },
-        "musicSearchConfigUrl": {
-            "type": "string",
-            "defaultValue": "tbd"
-        },
-        "musicSearchConfigConfidence": {
-            "type": "int",
-            "defaultValue": 85
-        }
+        }        
     },
     "variables": {
         "templateUri": "[concat('https://',parameters('sharedStorageName'),'.blob.core.windows.net/',parameters('sharedStorageContainer'))]",
@@ -170,9 +158,6 @@
                     },
                     "functionAppName": {
                         "value": "[parameters('funcAppName')]"
-                    },
-                    "musicSearchApplicationId": {
-                        "value": "[parameters('musicSearchApplicationId')]"
                     }
                 },
                 "dependsOn": [
@@ -208,13 +193,7 @@
                     },
                     "appInsightsKey": {
                         "value": "[reference(variables('appInsightsDeployment')).outputs.appInsightsKey.value]"
-                    },
-                    "musicSearchConfigUrl": {
-                        "value": "[parameters('musicSearchConfigUrl')]"
-                    },
-                    "musicSearchConfigConfidence": {
-                        "value": "[parameters('musicSearchConfigConfidence')]"
-                    }
+                    }                    
                 },
                 "dependsOn": [                    
                     "[resourceId('Microsoft.Resources/deployments', variables('storageAccountDeployment'))]",

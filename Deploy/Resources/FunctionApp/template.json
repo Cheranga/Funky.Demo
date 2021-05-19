@@ -33,8 +33,7 @@
             "defaultValue": "tbd"
         }
     },
-    "variables": {
-        "musicSearchApplicationId": "[concat('@Microsoft.KeyVault(SecretUri=https://', parameters('keyVaultName'), '.vault.azure.net/secrets/musicSearchApplicationId/)')]",
+    "variables": {        
         "timeZone": "AUS Eastern Standard Time"
     },
     "resources": [
