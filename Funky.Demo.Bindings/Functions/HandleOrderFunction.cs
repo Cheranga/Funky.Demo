@@ -6,10 +6,10 @@ using Funky.Demo.Abstractions;
 using Funky.Demo.Messages;
 using Funky.Demo.Models;
 using Funky.Demo.Services;
+using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 
 namespace Funky.Demo.Functions

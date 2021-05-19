@@ -8,9 +8,10 @@
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.1.0" />
         <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
-        <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask" Version="2.1.1" />
+        <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="3.0.10" />
+        <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.DurableTask" Version="2.4.3" />
         <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="3.0.4" />
-        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.11" />
+        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.12" />
     </ItemGroup>
     <ItemGroup>
         <None Update="host.json">
@@ -32,5 +33,10 @@
     <ItemGroup>
       <Compile Remove="Functions\VegetablePickerFunction.cs" />
       <Compile Remove="Functions\ManualPickerFunction.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Reference Include="Microsoft.Azure.Cosmos.Table, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+        <HintPath>..\..\..\..\..\Library\Application Support\JetBrains\Rider2021.1\azure-functions-coretools\3.0.3442\Microsoft.Azure.Cosmos.Table.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>
