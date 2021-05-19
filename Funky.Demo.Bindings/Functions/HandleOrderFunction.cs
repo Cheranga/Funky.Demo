@@ -6,10 +6,10 @@ using Funky.Demo.Abstractions;
 using Funky.Demo.Messages;
 using Funky.Demo.Models;
 using Funky.Demo.Services;
-using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 
 namespace Funky.Demo.Functions
@@ -72,6 +72,7 @@ namespace Funky.Demo.Functions
             {
                 PartitionKey = $"{pickOrderData.OrderId}".ToUpper(),
                 RowKey = $"{pickOrderData.Id}".ToUpper(),
+                OrderId = Order.OrderId,
                 OrderData = JsonConvert.SerializeObject(pickOrderData)
             };
 
@@ -101,7 +102,7 @@ namespace Funky.Demo.Functions
                 var pickOrderMessage = new PickOrderMessage
                 {
                     CorrelationId = Order.CorrelationId,
-                    OrderId = Order.OrderId.ToUpper(),
+                    OrderId = Order.OrderId,
                     Id = id,
                     ProductCode = item.OrderItem.ProductCode,
                     Quantity = item.OrderItem.Quantity
@@ -118,7 +119,7 @@ namespace Funky.Demo.Functions
             {
                 var pickOrderData = new PickOrderData
                 {
-                    OrderId = message.OrderId.ToUpper(),
+                    OrderId = message.OrderId,
                     Id = $"{message.OrderId}-{x.ProductCode}-{Guid.NewGuid():N}".ToUpper(),
                     OrderItem = x,
                     Picked = false

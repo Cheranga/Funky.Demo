@@ -1,6 +1,5 @@
 
-using Microsoft.Azure.Cosmos.Table;
-
+using Microsoft.WindowsAzure.Storage.Table;
 namespace Funky.Demo.Models
 {
     public class OrderItemData : TableEntity
