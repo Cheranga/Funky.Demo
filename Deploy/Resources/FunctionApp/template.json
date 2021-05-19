@@ -41,7 +41,8 @@
             "defaultValue": "Orders"
         }
     },
-    "variables": {        
+    "variables": {     
+        "queueConnectionString": "[concat('@Microsoft.KeyVault(SecretUri=https://', parameters('keyVaultName'), '.vault.azure.net/secrets/queueConnectionString/)')]",
         "timeZone": "AUS Eastern Standard Time"
     },
     "resources": [
@@ -79,6 +80,7 @@
                         "[resourceId('Microsoft.Web/sites', parameters('functionAppName'))]"
                     ],
                     "properties": {     
+                        "QueueConnectionString": "[variables('queueConnectionString')]",
                         "CustomerOrdersQueue": "[parameters('customerOrdersQueue')]",
                         "OrdersTable": "[parameters('ordersTable')]",
                         "AzureWebJobsStorage": "[parameters('storageAccountConnectionString')]",
@@ -119,7 +121,8 @@
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/sites/Slots', parameters('functionAppName'), 'Staging')]"
                     ],
-                    "properties": {     
+                    "properties": {   
+                        "QueueConnectionString": "[variables('queueConnectionString')]",  
                         "CustomerOrdersQueue": "[parameters('customerOrdersQueue')]",
                         "OrdersTable": "[parameters('ordersTable')]",                   
                         "AzureWebJobsStorage": "[parameters('storageAccountConnectionString')]",

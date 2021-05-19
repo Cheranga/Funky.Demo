@@ -10,7 +10,7 @@ namespace Funky.Demo.Functions
     public class CreateOrderFunction
     {
         [FunctionName(nameof(CreateOrderFunction))]
-        public async Task CreateOrderAsync([QueueTrigger("%CustomerOrdersQueue%")]
+        public async Task CreateOrderAsync([QueueTrigger("%CustomerOrdersQueue%", Connection = "QueueConnectionString")]
             CreateOrderMessage message, [DurableClient]IDurableClient client)
         {
             var entityId = new EntityId(nameof(HandleOrderFunction), message.OrderId.ToUpper());

@@ -12,6 +12,10 @@
         },
         "functionAppName": {
             "type": "string"
+        },
+        "storageAccountConnectionString":{
+            "type": "securestring",
+            "defaultValue": "tbd"
         }
     },
     "functions": [],
@@ -54,7 +58,20 @@
                     "name": "standard",
                     "family": "A"
                 }
-            }
+            },
+            "resources": [
+                {
+                    "type": "secrets",
+                    "name": "queueConnectionString",
+                    "apiVersion": "2016-10-01",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', parameters('keyVaultName'))]"
+                    ],
+                    "properties": {
+                        "value": "[parameters('storageAccountConnectionString')]"
+                    }
+                }                
+            ]
         }
     ],
     "outputs": {}

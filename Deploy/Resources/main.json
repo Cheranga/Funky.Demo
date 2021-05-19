@@ -158,9 +158,13 @@
                     },
                     "functionAppName": {
                         "value": "[parameters('funcAppName')]"
+                    },
+                    "storageAccountConnectionString": {
+                        "value": "[reference(variables('storageAccountDeployment')).outputs.storageAccountConnectionString.value]"
                     }
                 },
                 "dependsOn": [
+                    "[resourceId('Microsoft.Resources/deployments', variables('storageAccountDeployment'))]",
                     "[resourceId('Microsoft.Resources/deployments', variables('funcAppDeployment'))]"
                 ]
             }
