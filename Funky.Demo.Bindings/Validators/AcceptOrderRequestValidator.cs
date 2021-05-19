@@ -7,6 +7,7 @@ namespace Funky.Demo.Validators
     {
         public AcceptOrderRequestValidator()
         {
+            RuleFor(x => x.CorrelationId).NotNull().NotEmpty();
             RuleFor(x => x.OrderId).NotNull().NotEmpty();
             RuleFor(x => x.OrderItems).NotNull().NotEmpty();
         }

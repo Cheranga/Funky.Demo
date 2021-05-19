@@ -43,6 +43,7 @@ namespace Funky.Demo
             services.AddSingleton<ICreateProductService, CreateProductService>();
             services.AddSingleton<IHttpRequestBodyReader, HttpRequestBodyReader>();
             services.AddSingleton<IPickWorkerFactory, PickWorderFactory>();
+            services.AddScoped<IHttpHeaderReader, HttpHeaderReader>();
         }
     }
 }

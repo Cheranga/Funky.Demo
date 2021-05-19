@@ -16,12 +16,14 @@ namespace Funky.Demo.Functions
         private readonly IHttpRequestBodyReader requestReader;
         private readonly IValidator<AcceptOrderRequest> validator;
         private readonly IMapper mapper;
+        private readonly IHttpHeaderReader httpHeaderReader;
 
-        public AcceptOrderFunction(IHttpRequestBodyReader requestReader, IValidator<AcceptOrderRequest> validator, IMapper mapper)
+        public AcceptOrderFunction(IHttpRequestBodyReader requestReader, IValidator<AcceptOrderRequest> validator, IMapper mapper, IHttpHeaderReader httpHeaderReader)
         {
             this.requestReader = requestReader;
             this.validator = validator;
             this.mapper = mapper;
+            this.httpHeaderReader = httpHeaderReader;
         }
         
         [FunctionName(nameof(AcceptOrderFunction))]
@@ -31,6 +33,12 @@ namespace Funky.Demo.Functions
             [Queue("%CustomerOrdersQueue%", Connection = "QueueConnectionString")]IAsyncCollector<CreateOrderMessage> messages)
         {
             var acceptOrderRequest = await requestReader.ReadModelAsync<AcceptOrderRequest>(request);
+            var correlationId = httpHeaderReader.GetHeader(request, "correlationId");
+            if (acceptOrderRequest != null)
+            {
+                acceptOrderRequest.CorrelationId = correlationId;
+            }
+            
             var validationResult = await validator.ValidateAsync(acceptOrderRequest);
 
             if (!validationResult.IsValid)

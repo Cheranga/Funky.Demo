@@ -5,6 +5,7 @@ namespace Funky.Demo.Messages
 {
     public class CreateOrderMessage
     {
+        public string CorrelationId { get; set; }
         public string OrderId { get; set; }
         public string FlyBuysId { get; set; }
         public List<OrderItem> OrderItems { get; set; }

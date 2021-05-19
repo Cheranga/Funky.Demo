@@ -33,7 +33,7 @@ namespace Funky.Demo.Functions
         public async Task PickAsync(PickOrderMessage pickOrder)
         {
             PickOrder = pickOrder;
-            logger.LogWarning("Picker {pickerId} at work {productCode} {quantity}", pickOrder.Id, pickOrder.ProductCode, pickOrder.Quantity);
+            logger.LogInformation("{correlationId} Picker {pickerId} at work {productCode} {quantity}", pickOrder.CorrelationId, pickOrder.Id, pickOrder.ProductCode, pickOrder.Quantity);
             
             var delay = TimeSpan.FromSeconds(random.Next(1, 6));
             await Task.Delay(delay);
@@ -48,6 +48,7 @@ namespace Funky.Demo.Functions
         {
             var entityId = new EntityId(nameof(HandleOrderFunction), PickOrder.OrderId);
             
+            logger.LogInformation("{correlationId} {pickerId} completed {productCode} {quantity}", PickOrder.CorrelationId, PickOrder.Id, PickOrder.ProductCode, PickOrder.Quantity);
             context.SignalEntity<IHandleOrder>(entityId, x=>x.AcknowledgePickComplete(PickOrder.Id));
 
             return Task.CompletedTask;

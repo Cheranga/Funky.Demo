@@ -62,7 +62,7 @@ namespace Funky.Demo.Functions
             if (!isInProgress)
             {
                 Reset();
-                logger.LogError("Order picking completed for order: {orderId}", Order.OrderId);
+                logger.LogInformation("{correlationId} Order completed for order: {orderId}", Order.CorrelationId, Order.OrderId);
             }
         }
 
@@ -75,6 +75,7 @@ namespace Funky.Demo.Functions
                 OrderData = JsonConvert.SerializeObject(pickOrderData)
             };
 
+            logger.LogInformation("{correlationId} order item picked and ready {orderItemId}", Order.CorrelationId, pickOrderData.Id);
             await orders.AddAsync(orderItem);
         }
 
@@ -99,12 +100,14 @@ namespace Funky.Demo.Functions
 
                 var pickOrderMessage = new PickOrderMessage
                 {
+                    CorrelationId = Order.CorrelationId,
                     OrderId = Order.OrderId.ToUpper(),
                     Id = id,
                     ProductCode = item.OrderItem.ProductCode,
                     Quantity = item.OrderItem.Quantity
                 };
 
+                logger.LogInformation("{correlationId} starting order picking for {orderItemId}", Order.CorrelationId, pickOrderMessage.Id);
                 context.SignalEntity<IPicker>(entityId, picker => picker.PickAsync(pickOrderMessage));
             }
         }
