@@ -21,8 +21,10 @@ namespace Funky.Demo.Functions
         public async Task CreateOrderAsync([QueueTrigger("%CustomerOrdersQueue%", Connection = "QueueConnectionString")]
             CreateOrderMessage message, [DurableClient]IDurableClient client)
         {
-            logger.LogInformation("{correlationId} starting to process order {orderId}", message.CorrelationId, message.OrderId);
             message.OrderId = message.OrderId.ToUpper();
+
+            logger.LogInformation("{correlationId} starting to process order {orderId}", message.CorrelationId, message.OrderId);
+            
             var entityId = new EntityId(nameof(HandleOrderFunction), message.OrderId);
             await client.SignalEntityAsync<IHandleOrder>(entityId, handler => handler.ExecuteAsync(message));
         }
