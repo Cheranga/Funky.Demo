@@ -14,7 +14,6 @@ using Newtonsoft.Json;
 
 namespace Funky.Demo.Functions
 {
-    
     [JsonObject(MemberSerialization.OptIn)]
     public class HandleOrderFunction : IHandleOrder
     {
