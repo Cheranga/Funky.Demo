@@ -61,7 +61,9 @@ steps:
         -keyVaultName "$(keyVaultName)"         
         -planName "$(planName)" 
         -planSku "$(planSku)" 
-        -planTier "$(planTier)"
+        -planTier "$(planTier)" 
+        -azureAd.TenantId "$(AzureAd.TenantId)" 
+        -azureAd.Audience "$(AzureAd.Audience)"
       deploymentOutputs: ArmOutputs
 
   - task: AzureAppServiceManage@0

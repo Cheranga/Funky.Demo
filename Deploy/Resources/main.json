@@ -56,7 +56,15 @@
         "planTier": {
             "type": "string",
             "defaultValue": "tbd"
-        }        
+        },
+        "azureAd.TenantId":{
+            "type":"securestring",
+            "defaultValue": "tbd"
+        },
+        "azureAd.Audience":{
+            "type": "securestring",
+            "defaultValue": "tbd"
+        }
     },
     "variables": {
         "templateUri": "[concat('https://',parameters('sharedStorageName'),'.blob.core.windows.net/',parameters('sharedStorageContainer'))]",
@@ -161,6 +169,12 @@
                     },
                     "storageAccountConnectionString": {
                         "value": "[reference(variables('storageAccountDeployment')).outputs.storageAccountConnectionString.value]"
+                    },
+                    "azureAd.TenantId": {
+                        "value": "[parameters('azureAd.TenantId')]"
+                    },
+                    "azureAd.Audience": {
+                        "value": "[parameters('azureAd.Audience')]"
                     }
                 },
                 "dependsOn": [

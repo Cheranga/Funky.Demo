@@ -43,6 +43,8 @@
     },
     "variables": {     
         "queueConnectionString": "[concat('@Microsoft.KeyVault(SecretUri=https://', parameters('keyVaultName'), '.vault.azure.net/secrets/queueConnectionString/)')]",
+        "azureAdTenantId": "[concat('@Microsoft.KeyVault(SecretUri=https://', parameters('keyVaultName'), '.vault.azure.net/secrets/azureAdTenantId/)')]",
+        "azureAdAudience": "[concat('@Microsoft.KeyVault(SecretUri=https://', parameters('keyVaultName'), '.vault.azure.net/secrets/azureAdAudience/)')]",
         "timeZone": "AUS Eastern Standard Time"
     },
     "resources": [
@@ -80,6 +82,11 @@
                         "[resourceId('Microsoft.Web/sites', parameters('functionAppName'))]"
                     ],
                     "properties": {     
+                        "AzureAd:TenantId": "[variables('azureAdTenantId')]",
+                        "AzureAd:Instance": "https://login.microsoft.com/",
+                        "AzureAd:Audience": "[variables('azureAdAudience')]",
+                        "AzureAd:Scopes": "access.funkystore.api",        
+                        "AzureAd:Roles": "orders.create",
                         "QueueConnectionString": "[variables('queueConnectionString')]",
                         "CustomerOrdersQueue": "[parameters('customerOrdersQueue')]",
                         "OrdersTable": "[parameters('ordersTable')]",
@@ -122,6 +129,11 @@
                         "[resourceId('Microsoft.Web/sites/Slots', parameters('functionAppName'), 'Staging')]"
                     ],
                     "properties": {   
+                        "AzureAd:TenantId": "[variables('azureAdTenantId')]",
+                        "AzureAd:Instance": "https://login.microsoft.com/",
+                        "AzureAd:Audience": "[variables('azureAdAudience')]",
+                        "AzureAd:Scopes": "access.funkystore.api",        
+                        "AzureAd:Roles": "orders.create",                        
                         "QueueConnectionString": "[variables('queueConnectionString')]",  
                         "CustomerOrdersQueue": "[parameters('customerOrdersQueue')]",
                         "OrdersTable": "[parameters('ordersTable')]",                   

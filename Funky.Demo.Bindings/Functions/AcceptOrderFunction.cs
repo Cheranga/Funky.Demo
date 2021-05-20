@@ -1,7 +1,9 @@
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
+using Funky.Demo.CustomBindings;
 using Funky.Demo.Messages;
 using Funky.Demo.Requests;
 using Funky.Demo.Services;
@@ -30,8 +32,18 @@ namespace Funky.Demo.Functions
         public async Task<IActionResult> AcceptOrderAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "orders")]
             HttpRequestMessage request,
+            [AzureAdToken("%AzureAd:Roles%", "%AzureAd:Scopes%")]
+            AzureAdToken token,
             [Queue("%CustomerOrdersQueue%", Connection = "QueueConnectionString")]IAsyncCollector<CreateOrderMessage> messages)
         {
+            if (token == null)
+            {
+                return new ObjectResult("Unauthorized access to the API")
+                {
+                    StatusCode = (int) (HttpStatusCode.Unauthorized)
+                };
+            }
+            
             var acceptOrderRequest = await requestReader.ReadModelAsync<AcceptOrderRequest>(request);
             var correlationId = httpHeaderReader.GetHeader(request, "correlationId");
             if (acceptOrderRequest != null)
