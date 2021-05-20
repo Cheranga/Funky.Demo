@@ -16,7 +16,15 @@
         "storageAccountConnectionString":{
             "type": "securestring",
             "defaultValue": "tbd"
-        }
+        },
+        "azureAd.TenantId":{
+            "type": "securestring",
+            "defaultValue": "tbd"
+        },
+        "azureAd.Audience":{
+            "type": "securestring",
+            "defaultValue": "tbd"
+        }        
     },
     "functions": [],
     "variables": {
@@ -70,7 +78,29 @@
                     "properties": {
                         "value": "[parameters('storageAccountConnectionString')]"
                     }
-                }                
+                },
+                {
+                    "type": "secrets",
+                    "name": "azureAdTenantId",
+                    "apiVersion": "2016-10-01",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', parameters('keyVaultName'))]"
+                    ],
+                    "properties": {
+                        "value": "[parameters('azureAd.TenantId')]"
+                    }
+                },
+                {
+                    "type": "secrets",
+                    "name": "azureAdAudience",
+                    "apiVersion": "2016-10-01",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.KeyVault/vaults/', parameters('keyVaultName'))]"
+                    ],
+                    "properties": {
+                        "value": "[parameters('azureAd.Audience')]"
+                    }
+                }                                     
             ]
         }
     ],

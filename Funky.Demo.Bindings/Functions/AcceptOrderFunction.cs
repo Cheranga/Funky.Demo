@@ -32,7 +32,7 @@ namespace Funky.Demo.Functions
         public async Task<IActionResult> AcceptOrderAsync(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "orders")]
             HttpRequestMessage request,
-            [AzureAdToken("", "%AzureAd:Scopes%")]
+            [AzureAdToken("%AzureAd:Roles%", "%AzureAd:Scopes%")]
             AzureAdToken token,
             [Queue("%CustomerOrdersQueue%", Connection = "QueueConnectionString")]IAsyncCollector<CreateOrderMessage> messages)
         {
