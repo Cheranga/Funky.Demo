@@ -18,7 +18,7 @@ namespace Funky.Demo.Services
             var pickerData = new PickerData
             {
                 Category = nameof(PickerFunction),
-                Id = randomIdGenerator.Next(1, 6).ToString()
+                Id = randomIdGenerator.Next(1, 11).ToString()
             };
 
             return pickerData;
