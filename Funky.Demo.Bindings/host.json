@@ -14,7 +14,10 @@
     },
     "extensions": {
         "durableTask": {
-            "hubName": "DarkStores"
+            "hubName": "DarkStores",
+            "storageProvider": {
+                "partitionCount": 10
+            }
         }
     }
 }
